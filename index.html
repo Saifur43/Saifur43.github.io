@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saifur Rahman - AI Researcher & Django Developer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Navigation */
+        .header-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .nav-menu li:hover, .nav-menu li.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Page Content */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Main Page Styles */
+        .hero-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 5rem;
+            color: white;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-section .subtitle {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .hero-section .description {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            font-weight: 500;
+        }
+
+        .contact-links a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Research Interests Section */
+        .research-interests {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .research-interests h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .research-interests h2 i {
+            color: #667eea;
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .interest-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .interest-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .interest-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Card Styles for Other Pages */
+        .page-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .page-title i {
+            color: #667eea;
+        }
+
+        /* Experience Styles */
+        .experience-item {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .experience-item h3 {
+            color: #667eea;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .experience-item .company {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .experience-item .duration {
+            color: #888;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .experience-item ul {
+            padding-left: 25px;
+        }
+
+        .experience-item li {
+            margin-bottom: 10px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Skills Styles */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .skill-category h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Projects Styles */
+        .project-item {
+            margin-bottom: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .project-item h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .project-item p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Publications Styles */
+        .publication-item {
+            margin-bottom: 25px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .publication-item h4 {
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            font-size: 1.2rem;
+        }
+
+        .publication-item .authors {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .publication-item .journal {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .publication-item .year {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        /* Education Styles */
+        .education-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .education-item h3 {
+            color: #667eea;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .education-item .institution {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .education-item .duration {
+            color: #888;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .education-item p {
+            color: #666;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header-nav {
+                padding: 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .nav-menu li {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+
+            .hero-section {
+                padding: 40px 20px;
+            }
+
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+
+            .profile-img {
+                width: 150px;
+                height: 150px;
+                font-size: 4rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .page-card {
+                padding: 25px 20px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .skills-grid, .interests-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page.active {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Navigation -->
+        <header class="header-nav">
+            <div class="logo">Saifur Rahman</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-page="home">
+                        <i class="fas fa-home"></i> Home
+                    </li>
+                    <li class="nav-item" data-page="experience">
+                        <i class="fas fa-briefcase"></i> Experience
+                    </li>
+                    <li class="nav-item" data-page="education">
+                        <i class="fas fa-graduation-cap"></i> Education
+                    </li>
+                    <li class="nav-item" data-page="skills">
+                        <i class="fas fa-code"></i> Technical Skills
+                    </li>
+                    <li class="nav-item" data-page="projects">
+                        <i class="fas fa-project-diagram"></i> Projects
+                    </li>
+                    <li class="nav-item" data-page="publications">
+                        <i class="fas fa-book"></i> Publications
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <section class="hero-section">
+                <div class="profile-img">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h1>Saifur Rahman</h1>
+                <p class="subtitle">AI Researcher & Django Developer</p>
+                <p class="description">
+                    Experienced Python/Django developer and AI researcher with 3+ years of hands-on experience building scalable web applications, REST APIs, and data-driven platforms. Proficient in Django, PostgreSQL, and AI integration for backend services. Skilled at designing clean API interfaces, optimizing database performance, and deploying solutions using modern DevOps tools. Strong background in natural language processing and machine learning.
+                </p>
+                
+                <div class="contact-links">
+                    <a href="tel:+8801644199529">
+                        <i class="fas fa-phone"></i> +88 0164 419 9529
+                    </a>
+                    <a href="mailto:saifurrahmany43@gmail.com">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="https://github.com/Saifur43" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="#" target="_blank">
+                        <i class="fas fa-graduation-cap"></i> Google Scholar (190+ Citations)
+                    </a>
+                </div>
+            </section>
+
+            <section class="research-interests">
+                <h2><i class="fas fa-microscope"></i> Research Interests</h2>
+                <div class="interests-grid">
+                    <div class="interest-card">
+                        <h3>Natural Language Processing</h3>
+                        <p>Specialized in Bangla NLP, transformer architectures, and multilingual language models for text analysis and understanding.</p>
+                    </div>
+                    <div class="interest-card">
+                        <h3>Topic Modeling</h3>
+                        <p>Expert in unsupervised learning techniques for discovering latent topics in large text corpora using modern deep learning approaches.</p>
+                    </div>
+                    <div class="interest-card">
+                        <h3>Large Language Models</h3>
+                        <p>Research focus on transformer-based architectures, BERT variants, and their applications in low-resource languages.</p>
+                    </div>
+                    <div class="interest-card">
+                        <h3>Information Retrieval</h3>
+                        <p>Building intelligent systems for semantic search, document classification, and knowledge extraction from structured data.</p>
+                    </div>
+                    <div class="interest-card">
+                        <h3>Deep Learning for NLP</h3>
+                        <p>Advanced neural network architectures for text processing, including RNNs, CNNs, and attention mechanisms.</p>
+                    </div>
+                    <div class="interest-card">
+                        <h3>Data Analysis & Mining</h3>
+                        <p>Statistical analysis, pattern recognition, and predictive modeling for extracting insights from complex datasets.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Experience Page -->
+        <div class="page" id="experience">
+            <div class="page-card">
+                <h1 class="page-title"><i class="fas fa-briefcase"></i> Professional Experience</h1>
+                
+                <div class="experience-item">
+                    <h3>Assistant Manager - ICT</h3>
+                    <div class="company">Bangladesh Petroleum Exploration and Production Company Limited (BAPEX)</div>
+                    <div class="duration">2023 - Present</div>
+                    <ul>
+                        <li>Designed and maintained scalable Django backend systems for managing geological exploration data and digital inventory workflows</li>
+                        <li>Developed RESTful APIs using Django REST Framework (DRF) and optimized PostgreSQL queries for enhanced performance</li>
+                        <li>Integrated AI pipelines into the Django stack for geological hazard prediction and image-based interpretation</li>
+                        <li>Led backend development of a webGIS-based Data Inventory System aligned with enterprise geodata standards</li>
+                        <li>Collaborated with cross-functional teams to deliver data-driven solutions for petroleum exploration</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <h3>Research Assistant</h3>
+                    <div class="company">PC Research Lab, Department of CSE, Comilla University</div>
+                    <div class="duration">2020 - 2022</div>
+                    <ul>
+                        <li>Conducted comprehensive research on Bangla topic modeling using advanced deep learning approaches</li>
+                        <li>Implemented and evaluated various NLP models for Bangla text analysis and semantic understanding</li>
+                        <li>Collaborated with faculty members on research publications and conference paper submissions</li>
+                        <li>Assisted in data collection, preprocessing, and experimental design for machine learning projects</li>
+                        <li>Contributed to peer-reviewed publications with 190+ total citations</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <h3>Chair, IEEE Student Branch</h3>
+                    <div class="company">Comilla University</div>
+                    <div class="duration">January 2021 - December 2021</div>
+                    <ul>
+                        <li>Organized research methodology workshops and AI/ML webinars featuring researchers from IEEE community</li>
+                        <li>Facilitated networking opportunities between undergraduate students and local/international IT professionals</li>
+                        <li>Coordinated programming competitions and technical training sessions for 200+ students</li>
+                        <li>Led initiatives to promote technology education and professional development in the region</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Page -->
+        <div class="page" id="education">
+            <div class="page-card">
+                <h1 class="page-title"><i class="fas fa-graduation-cap"></i> Education</h1>
+                
+                <div class="education-item">
+                    <h3>M.Sc Engineering in Computer Science and Engineering</h3>
+                    <div class="institution">Comilla University, Cumilla, Bangladesh</div>
+                    <div class="duration">2022 - 2025 | CGPA: 3.76/4.0</div>
+                    <p><strong>Thesis:</strong> "Bangla Topic Modeling Using Transformer-based Architectures"</p>
+                    <p><strong>Supervisor:</strong> Partha Chakraborty</p>
+                    <p><strong>Relevant Coursework:</strong> Advanced Machine Learning, Natural Language Processing, Deep Learning, Information Retrieval, Big Data Analytics</p>
+                </div>
+
+                <div class="education-item">
+                    <h3>B.Sc Engineering in Computer Science and Engineering</h3>
+                    <div class="institution">Comilla University, Cumilla, Bangladesh</div>
+                    <div class="duration">2017 - 2021 | CGPA: 3.42/4.0</div>
+                    <p><strong>Relevant Coursework:</strong> Algorithms, Data Structures, Database Systems, Software Engineering, Machine Learning, Artificial Intelligence, Web Programming</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Skills Page -->
+        <div class="page" id="skills">
+            <div class="page-card">
+                <h1 class="page-title"><i class="fas fa-code"></i> Technical Skills</h1>
+                
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-laptop-code"></i> Programming Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">C</span>
+                            <span class="skill-tag">C++</span>
+                            <span class="skill-tag">LaTeX</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><i class="fas fa-brain"></i> ML/AI Frameworks</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">TensorFlow</span>
+                            <span class="skill-tag">Keras</span>
+                            <span class="skill-tag">Scikit-learn</span>
+                            <span class="skill-tag">Hugging Face</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><i class="fas fa-language"></i> NLP Techniques</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Transformer Models</span>
+                            <span class="skill-tag">Topic Modeling</span>
+                            <span class="skill-tag">Word Embeddings</span>
+                            <span class="skill-tag">Text Classification</span>
+                            <span class="skill-tag">BERT</span>
+                            <span class="skill-tag">BanglaBERT</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><i class="fas fa-chart-bar"></i> Data Science</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Pandas</span>
+                            <span class="skill-tag">NumPy</span>
+                            <span class="skill-tag">SciPy</span>
+                            <span class="skill-tag">StatsModels</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><i class="fas fa-chart-line"></i> Data Visualization</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Matplotlib</span>
+                            <span class="skill-tag">Seaborn</span>
+                            <span class="skill-tag">Plotly</span>
+                            <span class="skill-tag">Chart.js</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><i class="fas fa-server"></i> Application Development</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Django</span>
+                            <span class="skill-tag">Django REST Framework</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">RESTful APIs</span>
+                            <span class="skill-tag">Scrapy</span>
+                            <span class="skill-tag">Flutter</span>
+                            <span class="skill-tag">React Native</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Page -->
+        <div class="page" id="projects">
+            <div class="page-card">
+                <h1 class="page-title"><i class="fas fa-project-diagram"></i> Key Projects</h1>
+                
+                <div class="project-item">
+                    <h3>webGIS-based Data Inventory Management System</h3>
+                    <p>Built a comprehensive full-stack GIS-integrated web platform for geological and geophysical data management. The system features a robust Django backend with RESTful APIs, PostgreSQL+PostGIS for efficient geospatial data storage, and LeafletJS for interactive frontend mapping capabilities. Implemented AI-ready metadata pipelines to support automated data processing and analysis workflows for petroleum exploration operations.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">PostGIS</span>
+                        <span class="tech-tag">GeoServer</span>
+                        <span class="tech-tag">LeafletJS</span>
+                        <span class="tech-tag">REST APIs</span>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <h3>Bangla Topic Modeling using Transformer Architectures</h3>
+                    <p>Master's thesis research project focused on applying large transformer-based language models (BanglaBERT, mBERT) for automated topic discovery in Bangla text corpora. Explored and evaluated various prompt-driven and unsupervised techniques including BERTopic and LDA for multilingual generative text summarization and semantic clustering. Achieved significant improvements in topic coherence and semantic understanding for low-resource Bangla language processing.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">Hugging Face Transformers</span>
+                        <span class="tech-tag">BERTopic</span>
+                        <span class="tech-tag">Gensim</span>
+                        <span class="tech-tag">BanglaBERT</span>
+                        <span class="tech-tag">scikit-learn</span>
+                        <span class="tech-tag">NLTK</span>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <h3>LAS-SEGY-Conversion System</h3>
+                    <p>Developed a sophisticated Django-based geophysical and geological (G&G) data analysis platform with AI-driven image generation capabilities from LAS and SEG-Y data formats. The system automates the conversion of complex geological well-log and seismic data into visual formats suitable for AI model input and expert review, enabling enhanced subsurface analysis and geological interpretation for petroleum exploration activities.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">lasio</span>
+                        <span class="tech-tag">matplotlib</span>
+                        <span class="tech-tag">seaborn</span>
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Pandas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Publications Page -->
+        <div class="page" id="publications">
+            <div class="page-card">
+                <h1 class="page-title"><i class="fas fa-book"></i> Publications</h1>
+                
+                <div class="publication-item">
+                    <h4>Bangla Document Classification using Deep Recurrent Neural Network with BiLSTM</h4>
+                    <div class="authors">Saifur Rahman, Partha Chakraborty</div>
+                    <div class="journal">Algorithms for Intelligent Systems, Springer Singapore</div>
+                    <p><strong>DOI:</strong> https://doi.org/10.1007/978-981-33-4087-9_43</p>
+                    <p><strong>ISBN:</strong> 978-981-33-4086-2 (Print), 978-981-33-4087-9 (Online)</p>
+                    <span class="year">2021</span>
+                </div>
+
+                <div class="publication-item">
+                    <h4>Ascertaining Polarity of Public Opinions on Bangladesh Cricket Using Machine Learning Techniques</h4>
+                    <div class="authors">M Abdullah Faruque, Saifur Rahman, Partha Chakraborty, Tanupriya Choudhury, Jung Sup Um, Thipendra Pal Singh</div>
+                    <div class="journal">Spatial Information Research (SPIR)</div>
+                    <p><strong>DOI:</strong> https://doi.org/10.1007/s41324-021-00403-8</p>
+                    <p><strong>ISSN:</strong> 2366-3294 (Electronic), 2366-3286 (Print)</p>
+                    <span class="year">2021</span>
+                </div>
+
+                <div class="publication-item">
+                    <h4>A Comparative Study of Different Machine Learning Techniques to Predict the Result of an Individual Student Using Previous Performances</h4>
+                    <div class="authors">Khalil Ahammad, Partha Chakraborty, Evana Akter, Umme Honey Fomey, Saifur Rahman</div>
+                    <div class="journal">International Journal of Computer Science and Information Security (IJCSIS), Volume 19, No. 1</div>
+                    <p><strong>DOI:</strong> https://doi.org/10.5281/zenodo.4533374</p>
+                    <p><strong>ISSN:</strong> 1947-5500</p>
+                    <span class="year">2021</span>
+                </div>
+
+                <div class="publication-item">
+                    <h4>Movie Success Prediction using Historical and Current Data Mining</h4>
+                    <div class="authors">Partha Chakraborty, Md. Zahidur Rahman, Saifur Rahman</div>
+                    <div class="journal">International Journal of Computer Applications (IJCA) 178(47):1-5</div>
+                    <p><strong>ISBN:</strong> 973-93-80900-43-9</p>
+                    <p><strong>ISSN:</strong> 0975 – 8887</p>
+                    <span class="year">2020</span>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; padding: 25px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 15px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">
+                        <i class="fas fa-quote-left"></i> Citation Impact <i class="fas fa-quote-right"></i>
+                    </h3>
+                    <p style="font-size: 1.2rem; color: #555; margin: 0;">
+                        <strong>190+ Total Citations</strong> across all publications
+                    </p>
+                    <p style="color: #666; margin-top: 10px;">
+                        Research contributions recognized by the international academic community
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all nav items and pages
+                navItems.forEach(nav => nav.classList.remove('active'));
+                pages.forEach(page => page.classList.remove('active'));
+
+                // Add active class to clicked nav item
+                item.classList.add('active');
+
+                // Show corresponding page
+                const targetPage = item.getAttribute('data-page');
+                document.getElementById(targetPage).classList.add('active');
+            });
+        });
+
+        // Smooth scroll to top when switching pages
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add scroll to top on page change
+        navItems.forEach(item => {
+            item.addEventListener('click', scrollToTop);
+        });
+
+        // Add hover effects to skill tags
+        const skillTags = document.querySelectorAll('.skill-tag');
+        skillTags.forEach(tag => {
+            tag.addEventListener('mouseenter', () => {
+                tag.style.transform = 'translateY(-2px) scale(1.05)';
+            });
+            
+            tag.addEventListener('mouseleave', () => {
+                tag.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add interactive effects to cards
+        const cards = document.querySelectorAll('.interest-card, .experience-item, .project-item, .publication-item, .education-item, .skill-category');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.15)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = 'none';
+            });
+        });
+
+        // Mobile menu toggle (for smaller screens)
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        // Adjust navigation for mobile
+        if (isMobile()) {
+            const headerNav = document.querySelector('.header-nav');
+            headerNav.style.flexDirection = 'column';
+            headerNav.style.gap = '20px';
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const headerNav = document.querySelector('.header-nav');
+            if (isMobile()) {
+                headerNav.style.flexDirection = 'column';
+                headerNav.style.gap = '20px';
+            } else {
+                headerNav.style.flexDirection = 'row';
+                headerNav.style.gap = '0';
+            }
+        });
+    </script>
+</body>
+</html>
