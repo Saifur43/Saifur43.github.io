@@ -1,1021 +1,1254 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saifur Rahman - AI Researcher & Python Developer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#6366f1', // Indigo 500
-                        secondary: '#a855f7', // Purple 500
-                        dark: '#0f172a', // Slate 900
-                        card: '#1e293b', // Slate 800
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom scrollbar for a cleaner look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saifur Rahman — ML Engineer & Python Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f0e8;
+    --paper-2: #ede8da;
+    --accent: #c8402a;
+    --accent-2: #2a4fc8;
+    --gold: #b8860b;
+    --muted: #8a8070;
+    --rule: #d4cfc2;
+  }
 
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
+  html { scroll-behavior: smooth; }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    cursor: default;
+    overflow-x: hidden;
+  }
 
-        .glass-nav {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+  /* Custom cursor */
+  body * { cursor: none !important; }
+  #cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+  #cursor.big {
+    width: 40px; height: 40px;
+    background: var(--accent-2);
+  }
 
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+  }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    height: 60px;
+  }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .nav-logo span { color: var(--accent); }
 
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s step-start infinite;
-            color: #6366f1;
-            margin-left: 2px;
-        }
+  .nav-tabs {
+    display: flex; gap: 0;
+    list-style: none;
+  }
+  .nav-tabs button {
+    background: none; border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 1.2rem;
+    height: 60px;
+    transition: color 0.2s, background 0.2s;
+    border-bottom: 2px solid transparent;
+    position: relative;
+  }
+  .nav-tabs button.active,
+  .nav-tabs button:hover {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+  .nav-tabs button.active { color: var(--accent); }
 
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
-    </style>
+  .nav-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── LAYOUT ─── */
+  main { padding-top: 60px; min-height: 100vh; }
+  .page { display: none; }
+  .page.active { display: block; animation: pageIn 0.4s ease; }
+
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── HOME PAGE ─── */
+  .home-hero {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Top band: name + photo + bio in one row */
+  .hero-top {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+    padding: 2.5rem 4rem;
+    gap: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-top::before {
+    content: 'SR';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 18rem;
+    font-weight: 900;
+    color: rgba(0,0,0,0.04);
+    right: 22rem; top: -2rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .hero-name-block {}
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .hero-label::before {
+    content: '';
+    display: block; width: 24px; height: 1px;
+    background: var(--muted);
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 5vw, 5rem);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-center {
+    padding: 0 2rem;
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+  }
+  .hero-bio {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: #444;
+    margin-bottom: 1.2rem;
+  }
+  .hero-bio strong { color: var(--accent); font-weight: 600; }
+
+  .hero-tagline-wrap {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.2rem;
+  }
+  .hero-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .hero-tagline-sep {
+    flex: 1; height: 1px; background: var(--rule);
+  }
+
+  .hero-links {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .hero-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    transition: all 0.2s;
+  }
+  .hero-link:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .hero-link svg { width: 11px; height: 11px; }
+
+  .hero-right-block {
+    display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+  }
+  .hero-photo {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--rule);
+    filter: grayscale(15%);
+    transition: filter 0.3s, transform 0.3s;
+  }
+  .hero-photo:hover { filter: grayscale(0%); transform: scale(1.05); }
+
+  /* Stats bar */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--ink);
+  }
+  .stat {
+    padding: 1.2rem 2rem;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1;
+    display: block;
+  }
+  .stat-num em { color: var(--accent); font-style: normal; }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  /* Interests grid */
+  .interests-section {
+    padding: 5rem 4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-header {
+    display: flex; align-items: baseline; gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+  }
+  .interest-card {
+    background: var(--paper);
+    padding: 2.5rem 2rem;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .interest-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--rule);
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .interest-card:hover { background: var(--ink); }
+  .interest-card:hover .int-title,
+  .interest-card:hover .int-desc { color: var(--paper); }
+  .interest-card:hover::before { color: rgba(255,255,255,0.05); }
+
+  .int-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .int-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    transition: color 0.2s;
+  }
+  .int-desc {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-container { max-width: 900px; margin: 0 auto; padding: 5rem 3rem; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .exp-item:first-child { padding-top: 0; }
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta { text-align: right; padding-top: 0.25rem; }
+  .exp-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--rule);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .exp-badge {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    background: var(--accent);
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .exp-body {}
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
+  }
+  .exp-company {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .exp-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .exp-list li {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: #555;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .exp-list li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  /* ─── EDUCATION ─── */
+  .edu-container { max-width: 900px; margin: 0 auto; padding: 5rem 3rem; }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .edu-card {
+    padding: 3rem;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .edu-card:hover {
+    border-color: var(--ink);
+    transform: translateY(-3px);
+  }
+  .edu-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--accent);
+  }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .edu-field {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .edu-uni {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .edu-years {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .edu-cgpa {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.2rem;
+  }
+  .edu-thesis {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: #555;
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+  }
+  .edu-thesis strong { color: var(--accent); }
+
+  /* ─── SKILLS ─── */
+  .skills-container { padding: 5rem 4rem; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+  }
+  .skill-group {
+    background: var(--paper);
+    padding: 2.5rem;
+  }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    transition: all 0.15s;
+  }
+  .skill-tag:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* ─── PROJECTS ─── */
+  .proj-container { padding: 5rem 4rem; }
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--rule);
+  }
+  .proj-card {
+    background: var(--paper);
+    padding: 3rem 2.5rem;
+    transition: background 0.25s;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  .proj-card:hover { background: var(--ink); }
+  .proj-card:hover .proj-title,
+  .proj-card:hover .proj-desc { color: var(--paper); }
+  .proj-card:hover .proj-tag {
+    border-color: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+  }
+  .proj-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+  .proj-card:hover .proj-num { color: rgba(255,255,255,0.4); }
+  .proj-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+  .proj-desc {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--muted);
+    flex: 1;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
+  }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .proj-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  /* ─── PUBLICATIONS ─── */
+  .pub-container { max-width: 900px; margin: 0 auto; padding: 5rem 3rem; }
+  .pub-item {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .pub-item:first-child { padding-top: 0; }
+  .pub-item:last-child { border-bottom: none; }
+  .pub-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+  .pub-item:hover .pub-title { color: var(--accent); }
+  .pub-authors {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .pub-journal {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    color: var(--accent-2);
+    font-style: italic;
+  }
+  .pub-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--rule);
+    text-align: right;
+    line-height: 1;
+  }
+
+  .citation-banner {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+  }
+  .citation-banner .big-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+  }
+  .citation-banner p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.75rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--paper);
+  }
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-tabs { display: none; }
+    .mobile-menu-btn { display: block !important; }
+    .nav-right { display: none; }
+    .hero-top { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 1.5rem; }
+    .hero-center { border-left: none; border-right: none; border-top: 1px solid var(--rule); padding: 1.5rem 0 0; }
+    .hero-top::before { display: none; }
+    .interests-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 1rem; }
+    .exp-meta { text-align: left; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .pub-item { grid-template-columns: 1fr; }
+    .pub-year { display: none; }
+    .interests-section, .skills-container, .proj-container { padding: 3rem 2rem; }
+    .exp-container, .edu-container, .pub-container { padding: 3rem 1.5rem; }
+    footer { padding: 1.5rem 2rem; }
+    .hero-right-block { flex-direction: row; justify-content: center; }
+  }
+
+  /* Mobile menu */
+  .mobile-menu-btn {
+    display: none;
+    background: none; border: none;
+    font-size: 1.2rem;
+    color: var(--ink);
+  }
+  .mobile-nav {
+    display: none;
+    position: absolute; top: 60px; left: 0; right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 1rem 0;
+    z-index: 99;
+  }
+  .mobile-nav.open { display: block; }
+  .mobile-nav button {
+    display: block; width: 100%;
+    background: none; border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 0.8rem 2rem;
+    text-align: left;
+    transition: background 0.15s;
+  }
+  .mobile-nav button:hover { background: var(--paper-2); }
+
+  /* Horizontal scroll for stats on mobile */
+  @media (max-width: 480px) {
+    .hero-stats { grid-template-columns: repeat(3,1fr); overflow-x: auto; }
+    .stat-num { font-size: 1.8rem; }
+  }
+</style>
 </head>
+<body>
 
-<body class="bg-dark text-slate-300 font-sans min-h-screen selection:bg-primary selection:text-white">
+<div id="cursor"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0">
-                    <span
-                        class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                        Saifur Rahman
-                    </span>
-                </div>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Saifur <span>Rahman</span></a>
+  <ul class="nav-tabs">
+    <li><button class="active" onclick="showPage('home',this)">Home</button></li>
+    <li><button onclick="showPage('experience',this)">Experience</button></li>
+    <li><button onclick="showPage('education',this)">Education</button></li>
+    <li><button onclick="showPage('skills',this)">Skills</button></li>
+    <li><button onclick="showPage('projects',this)">Projects</button></li>
+    <li><button onclick="showPage('publications',this)">Publications</button></li>
+  </ul>
+  <span class="nav-right">AI · NLP · Python</span>
+  <button class="mobile-menu-btn" onclick="toggleMobile()">☰</button>
+  <div class="mobile-nav" id="mobile-nav">
+    <button onclick="showPage('home',this);toggleMobile()">Home</button>
+    <button onclick="showPage('experience',this);toggleMobile()">Experience</button>
+    <button onclick="showPage('education',this);toggleMobile()">Education</button>
+    <button onclick="showPage('skills',this);toggleMobile()">Skills</button>
+    <button onclick="showPage('projects',this);toggleMobile()">Projects</button>
+    <button onclick="showPage('publications',this);toggleMobile()">Publications</button>
+  </div>
+</nav>
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <button onclick="switchTab('home')"
-                            class="nav-item active px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/5 hover:text-white text-white bg-white/10"
-                            data-target="home">
-                            <i class="fas fa-home mr-2"></i>Home
-                        </button>
-                        <button onclick="switchTab('experience')"
-                            class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/5 hover:text-white text-slate-400"
-                            data-target="experience">
-                            <i class="fas fa-briefcase mr-2"></i>Experience
-                        </button>
-                        <button onclick="switchTab('education')"
-                            class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/5 hover:text-white text-slate-400"
-                            data-target="education">
-                            <i class="fas fa-graduation-cap mr-2"></i>Education
-                        </button>
-                        <button onclick="switchTab('skills')"
-                            class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/5 hover:text-white text-slate-400"
-                            data-target="skills">
-                            <i class="fas fa-code mr-2"></i>Skills
-                        </button>
-                        <button onclick="switchTab('projects')"
-                            class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/5 hover:text-white text-slate-400"
-                            data-target="projects">
-                            <i class="fas fa-project-diagram mr-2"></i>Projects
-                        </button>
-                        <button onclick="switchTab('publications')"
-                            class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/5 hover:text-white text-slate-400"
-                            data-target="publications">
-                            <i class="fas fa-book mr-2"></i>Publications
-                        </button>
-                    </div>
-                </div>
+<main>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button onclick="toggleMobileMenu()" class="text-slate-300 hover:text-white p-2">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
+<!-- ═══════════════ HOME ═══════════════ -->
+<section id="home" class="page active">
+  <div class="home-hero">
+
+    <!-- Compact top band -->
+    <div class="hero-top">
+      <!-- Name block -->
+      <div class="hero-name-block">
+        <p class="hero-label">Portfolio · 2026</p>
+        <h1 class="hero-name">Saifur<br><em>Rahman</em></h1>
+      </div>
+
+      <!-- Bio + links -->
+      <div class="hero-center">
+        <div class="hero-tagline-wrap">
+          <span class="hero-tagline" id="typing-text" style="min-width:200px;"></span>
+          <div class="hero-tagline-sep"></div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-card border-b border-white/5">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <button onclick="switchTab('home')"
-                    class="mobile-nav-item block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white bg-white/10"
-                    data-target="home">Home</button>
-                <button onclick="switchTab('experience')"
-                    class="mobile-nav-item block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-400 hover:text-white hover:bg-white/5"
-                    data-target="experience">Experience</button>
-                <button onclick="switchTab('education')"
-                    class="mobile-nav-item block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-400 hover:text-white hover:bg-white/5"
-                    data-target="education">Education</button>
-                <button onclick="switchTab('skills')"
-                    class="mobile-nav-item block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-400 hover:text-white hover:bg-white/5"
-                    data-target="skills">Skills</button>
-                <button onclick="switchTab('projects')"
-                    class="mobile-nav-item block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-400 hover:text-white hover:bg-white/5"
-                    data-target="projects">Projects</button>
-                <button onclick="switchTab('publications')"
-                    class="mobile-nav-item block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-400 hover:text-white hover:bg-white/5"
-                    data-target="publications">Publications</button>
-            </div>
+        <p class="hero-bio">
+          Python developer with <strong>3+ years</strong> building scalable web apps and REST APIs using Django &amp; FastAPI. AI researcher focused on <strong>NLP</strong>, transformer-based models, and low-resource language processing. Published with <strong>250+ citations</strong> across petroleum exploration, nutrition analysis, and Bangla NLP.
+        </p>
+        <div class="hero-links">
+          <a href="tel:+8801644199529" class="hero-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Phone
+          </a>
+          <a href="mailto:saifurrahmany43@gmail.com" class="hero-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email
+          </a>
+          <a href="https://github.com/Saifur43" target="_blank" class="hero-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/saifur-rahman" target="_blank" class="hero-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+          </a>
         </div>
-    </nav>
+      </div>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12">
+      <!-- Photo -->
+      <div class="hero-right-block">
+        <img src="https://avatars.githubusercontent.com/u/16235332?v=4" alt="Saifur Rahman" class="hero-photo">
+      </div>
+    </div>
 
-        <!-- Home Section -->
-        <div id="home" class="page-content animate-fade-in block">
-            <div class="flex flex-col items-center justify-center min-h-[80vh] text-center">
-                <div class="relative mb-8 group">
-                    <div
-                        class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200">
-                    </div>
-                    <div class="relative w-48 h-48 rounded-full overflow-hidden border-4 border-dark">
-                        <img src="https://avatars.githubusercontent.com/u/16235332?v=4" alt="Saifur Rahman"
-                            class="w-full h-full object-cover transform transition duration-500 group-hover:scale-110">
-                    </div>
-                </div>
+    <!-- Stats bar — full width ink band -->
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">4<em>+</em></span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">250<em>+</em></span>
+        <span class="stat-label">Total Citations</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">10<em>+</em></span>
+        <span class="stat-label">Publications</span>
+      </div>
+    </div>
 
-                <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
-                    <span class="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Saifur
-                        Rahman</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-primary font-medium mb-6 min-h-[32px]">
-                    <span id="typing-text"></span><span class="typing-cursor"></span>
-                </p>
+  </div>
 
-                <p class="max-w-3xl mx-auto text-lg text-slate-400 leading-relaxed mb-10">
-                    Python developer with 3+ years of experience building scalable web applications and REST APIs using
-                    Django and FastAPI. AI researcher focused on NLP, transformer-based models, and low-resource
-                    language processing. Published researcher with 250+ citations and expertise in applying machine
-                    learning to real-world problems in petroleum exploration, nutrition analysis, and Bangla NLP.
-                </p>
+  <!-- Research Interests -->
+  <div class="interests-section">
+    <div class="section-header">
+      <span class="section-num">§ 01</span>
+      <h2 class="section-title">Research Interests</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="interests-grid">
+      <div class="interest-card" data-num="01">
+        <div class="int-icon">⬡</div>
+        <h3 class="int-title">Natural Language Processing</h3>
+        <p class="int-desc">Specialized in Bangla NLP, transformer architectures, and multilingual language models for text analysis and understanding.</p>
+      </div>
+      <div class="interest-card" data-num="02">
+        <div class="int-icon">◈</div>
+        <h3 class="int-title">Topic Modeling</h3>
+        <p class="int-desc">Unsupervised learning techniques for discovering latent topics in large text corpora using modern deep learning approaches.</p>
+      </div>
+      <div class="interest-card" data-num="03">
+        <div class="int-icon">⬢</div>
+        <h3 class="int-title">Large Language Models</h3>
+        <p class="int-desc">Research focus on transformer-based architectures, BERT variants, and their applications in low-resource languages.</p>
+      </div>
+      <div class="interest-card" data-num="04">
+        <div class="int-icon">◎</div>
+        <h3 class="int-title">Information Retrieval</h3>
+        <p class="int-desc">Building intelligent systems for semantic search, document classification, and knowledge extraction from structured data.</p>
+      </div>
+      <div class="interest-card" data-num="05">
+        <div class="int-icon">⬟</div>
+        <h3 class="int-title">Deep Learning for NLP</h3>
+        <p class="int-desc">Advanced neural network architectures for text processing, including RNNs, CNNs, and attention mechanisms.</p>
+      </div>
+      <div class="interest-card" data-num="06">
+        <div class="int-icon">◆</div>
+        <h3 class="int-title">ML in Oil &amp; Gas</h3>
+        <p class="int-desc">Applying machine learning techniques to petroleum exploration, drilling optimization, and geospatial data analysis.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <div class="flex flex-wrap justify-center gap-4 mb-20">
-                    <a href="tel:+8801644199529"
-                        class="flex items-center px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:scale-105 hover:border-primary/50 group">
-                        <i class="fas fa-phone mr-2 text-primary group-hover:text-white transition-colors"></i>
-                        <span>+88 0164 419 9529</span>
-                    </a>
-                    <a href="mailto:saifurrahmany43@gmail.com"
-                        class="flex items-center px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:scale-105 hover:border-primary/50 group">
-                        <i class="fas fa-envelope mr-2 text-primary group-hover:text-white transition-colors"></i>
-                        <span>Email</span>
-                    </a>
-                    <a href="https://github.com/Saifur43" target="_blank"
-                        class="flex items-center px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:scale-105 hover:border-primary/50 group">
-                        <i class="fab fa-github mr-2 text-primary group-hover:text-white transition-colors"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/saifur-rahman" target="_blank"
-                        class="flex items-center px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:scale-105 hover:border-primary/50 group">
-                        <i class="fab fa-linkedin mr-2 text-primary group-hover:text-white transition-colors"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                </div>
+<!-- ═══════════════ EXPERIENCE ═══════════════ -->
+<section id="experience" class="page">
+  <div class="exp-container">
+    <div class="section-header" style="margin-bottom:4rem;">
+      <span class="section-num">§ 02</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-rule"></div>
+    </div>
 
-                <!-- Research Interests -->
-                <div class="w-full">
-                    <h2 class="text-3xl font-bold mb-10 flex items-center justify-center gap-3">
-                        <i class="fas fa-microscope text-secondary"></i>
-                        <span class="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Research
-                            Interests</span>
-                    </h2>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-year">23</span>
+        <div class="exp-period">2023 — Present</div>
+        <span class="exp-badge">Current</span>
+      </div>
+      <div class="exp-body">
+        <h3 class="exp-role">Assistant Manager — Software Engineer</h3>
+        <div class="exp-company">BAPEX · Bangladesh Petroleum Exploration & Production</div>
+        <ul class="exp-list">
+          <li>Designed and maintained scalable Django backend systems for petroleum exploration and production data management</li>
+          <li>Led development of WebGIS-based Data Inventory Management System (DIMS) with PostGIS for geospatial data handling</li>
+          <li>Implemented RESTful APIs using Django REST Framework for geological data access and manipulation</li>
+          <li>Built PetroVis, a comprehensive Django-based E&P data visualization platform for managing well data, core analysis, drilling reports, and production metrics</li>
+          <li>Developed multimodal ML system integrating time-series drilling data with geological formations for operational efficiency</li>
+          <li>Created analytical dashboards providing predictive insights for subsurface analysis and strategic decision-making</li>
+        </ul>
+      </div>
+    </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
-                        <!-- Interest Card 1 -->
-                        <div
-                            class="group p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10">
-                            <div
-                                class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                                <i class="fas fa-language text-primary text-xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold text-white mb-2">Natural Language Processing</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Specialized in Bangla NLP, transformer
-                                architectures, and multilingual language models for text analysis and understanding.</p>
-                        </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-year">25</span>
+        <div class="exp-period">2025 — Present</div>
+        <span class="exp-badge">Part-Time</span>
+      </div>
+      <div class="exp-body">
+        <h3 class="exp-role">NLP &amp; ML Engineer</h3>
+        <div class="exp-company">NutriLab · AI-Powered Nutrition Platform</div>
+        <ul class="exp-list">
+          <li>Built FastAPI backend services for automated food label analysis, integrating USDA datasets with Qdrant vector database</li>
+          <li>Developed high-performance FastAPI endpoints for four core user interaction loops with async operations</li>
+          <li>Reduced API latency from 30s to 3s through optimization, significantly improving platform responsiveness</li>
+          <li>Implemented NLP models for nutrition detection and personalized dietary recommendations with real-time inference</li>
+          <li>Built AI-driven pipelines for real-time nutrition recommendations using vector search</li>
+        </ul>
+      </div>
+    </div>
 
-                        <!-- Interest Card 2 -->
-                        <div
-                            class="group p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10">
-                            <div
-                                class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4 group-hover:bg-secondary/20 transition-colors">
-                                <i class="fas fa-layer-group text-secondary text-xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold text-white mb-2">Topic Modeling</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Expert in unsupervised learning techniques
-                                for discovering latent topics in large text corpora using modern deep learning
-                                approaches.</p>
-                        </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-year">20</span>
+        <div class="exp-period">2020 — 2022</div>
+      </div>
+      <div class="exp-body">
+        <h3 class="exp-role">Research Assistant</h3>
+        <div class="exp-company">PC Research Lab · Dept. of CSE, Comilla University</div>
+        <ul class="exp-list">
+          <li>Led research in Bangla topic modeling using deep learning and transformer architectures</li>
+          <li>Conducted research on Bangla NLP using transformer architectures (BanglaBERT, mBERT)</li>
+          <li>Implemented NLP models using PyTorch and Hugging Face Transformers</li>
+          <li>Developed Python data pipelines for text preprocessing and model evaluation</li>
+          <li>Co-authored multiple peer-reviewed publications with 250+ total citations</li>
+          <li>Mentored undergraduate students in research methodologies and experimental design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-                        <!-- Interest Card 3 -->
-                        <div
-                            class="group p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10">
-                            <div
-                                class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
-                                <i class="fas fa-robot text-blue-500 text-xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold text-white mb-2">Large Language Models</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Research focus on transformer-based
-                                architectures, BERT variants, and their applications in low-resource languages.</p>
-                        </div>
-
-                        <!-- Interest Card 4 -->
-                        <div
-                            class="group p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10">
-                            <div
-                                class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
-                                <i class="fas fa-search text-emerald-500 text-xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold text-white mb-2">Information Retrieval</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Building intelligent systems for semantic
-                                search, document classification, and knowledge extraction from structured data.</p>
-                        </div>
-
-                        <!-- Interest Card 5 -->
-                        <div
-                            class="group p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10">
-                            <div
-                                class="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
-                                <i class="fas fa-network-wired text-orange-500 text-xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold text-white mb-2">Deep Learning for NLP</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Advanced neural network architectures for
-                                text processing, including RNNs, CNNs, and attention mechanisms.</p>
-                        </div>
-
-                        <!-- Interest Card 6 -->
-                        <div
-                            class="group p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10">
-                            <div
-                                class="w-12 h-12 rounded-lg bg-rose-500/10 flex items-center justify-center mb-4 group-hover:bg-rose-500/20 transition-colors">
-                                <i class="fas fa-oil-can text-rose-500 text-xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold text-white mb-2">ML in Oil & Gas Industry</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Applying machine learning techniques to
-                                petroleum exploration, drilling optimization, and geospatial data analysis.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- ═══════════════ EDUCATION ═══════════════ -->
+<section id="education" class="page">
+  <div class="edu-container">
+    <div class="section-header" style="margin-bottom:4rem;">
+      <span class="section-num">§ 03</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">M.Sc Engineering</div>
+        <div class="edu-field">Computer Science &amp; Engineering</div>
+        <div class="edu-uni">Comilla University</div>
+        <div class="edu-years">2022 — 2025</div>
+        <div class="edu-cgpa">CGPA 3.76 / 4.0</div>
+        <div class="edu-thesis">
+          <strong>Thesis:</strong> "Bangla Topic Modeling Using Transformer-based Architectures"<br><br>
+          Advanced Machine Learning, NLP, Deep Learning, Information Retrieval, Big Data Analytics
         </div>
-
-        <!-- Experience Section -->
-        <div id="experience" class="page-content hidden animate-fade-in">
-            <h2 class="text-4xl font-bold mb-12 text-center flex items-center justify-center gap-3">
-                <i class="fas fa-briefcase text-primary"></i>
-                <span class="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Professional
-                    Experience</span>
-            </h2>
-
-            <div
-                class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-700 before:to-transparent">
-
-                <!-- Experience Item 1 -->
-                <div
-                    class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div
-                        class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-dark shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fas fa-building text-primary text-sm"></i>
-                    </div>
-                    <div
-                        class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 shadow-lg">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-white">Assistant Manager - Software Engineer</h3>
-                                <div class="text-primary font-medium">Bangladesh Petroleum Exploration & Production
-                                    Company Limited (BAPEX)</div>
-                            </div>
-                            <span
-                                class="mt-2 sm:mt-0 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold border border-primary/20">2023
-                                - Present</span>
-                        </div>
-                        <ul class="space-y-2 text-slate-400 text-sm list-disc list-inside marker:text-primary">
-                            <li>Designed and maintained scalable Django backend systems for petroleum exploration and
-                                production data management</li>
-                            <li>Led development of WebGIS-based Data Inventory Management System (DIMS) with PostGIS for
-                                geospatial data handling</li>
-                            <li>Implemented RESTful APIs using Django REST Framework for geological data access and
-                                manipulation</li>
-                            <li>Built PetroVis, a comprehensive Django-based E&P data visualization platform for
-                                managing well data, core analysis, drilling reports, and production metrics</li>
-                            <li>Integrated LAS-SEGY conversion capabilities for automated geophysical data processing
-                            </li>
-                            <li>Developed multimodal ML system integrating time-series drilling data with geological
-                                formations for operational efficiency</li>
-                            <li>Created analytical dashboards providing predictive insights for subsurface analysis and
-                                strategic decision-making</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Experience Item 2 -->
-                <div
-                    class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div
-                        class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-dark shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fas fa-leaf text-secondary text-sm"></i>
-                    </div>
-                    <div
-                        class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-card border border-white/5 hover:border-secondary/50 transition-all duration-300 shadow-lg">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-white">NLP & ML Engineer (Part-Time)</h3>
-                                <div class="text-secondary font-medium">NutriLab - AI-Powered Nutrition Platform</div>
-                            </div>
-                            <span
-                                class="mt-2 sm:mt-0 px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-semibold border border-secondary/20">2025
-                                - Present</span>
-                        </div>
-                        <ul class="space-y-2 text-slate-400 text-sm list-disc list-inside marker:text-secondary">
-                            <li>Built FastAPI backend services for automated food label analysis, integrating USDA
-                                datasets with Qdrant vector database</li>
-                            <li>Developed high-performance FastAPI endpoints for four core user interaction loops (food
-                                scanning, label scanning, chatbot, and home page) with async operations</li>
-                            <li>Reduced API latency from 30s to 3s through optimization, significantly improving
-                                platform responsiveness</li>
-                            <li>Implemented NLP models for nutrition detection and personalized dietary recommendations
-                                with real-time inference</li>
-                            <li>Built AI-driven pipelines for real-time nutrition recommendations using vector search
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Experience Item 3 -->
-                <div
-                    class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div
-                        class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-dark shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fas fa-university text-blue-500 text-sm"></i>
-                    </div>
-                    <div
-                        class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-card border border-white/5 hover:border-blue-500/50 transition-all duration-300 shadow-lg">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-white">Research Assistant</h3>
-                                <div class="text-blue-500 font-medium">PC Research Lab, Dept. of CSE, Comilla University
-                                </div>
-                            </div>
-                            <span
-                                class="mt-2 sm:mt-0 px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 text-xs font-semibold border border-blue-500/20">2020
-                                - 2022</span>
-                        </div>
-                        <ul class="space-y-2 text-slate-400 text-sm list-disc list-inside marker:text-blue-500">
-                            <li>Led research in Bangla topic modeling using deep learning and transformer architectures
-                            </li>
-                            <li>Conducted research on Bangla NLP using transformer architectures (BanglaBERT, mBERT)
-                            </li>
-                            <li>Implemented NLP models using PyTorch and Hugging Face Transformers</li>
-                            <li>Developed Python data pipelines for text preprocessing and model evaluation</li>
-                            <li>Evaluated state-of-the-art NLP models for low-resource language processing</li>
-                            <li>Co-authored multiple peer-reviewed publications with 250+ total citations</li>
-                            <li>Mentored undergraduate students in research methodologies and experimental design</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">B.Sc Engineering</div>
+        <div class="edu-field">Computer Science &amp; Engineering</div>
+        <div class="edu-uni">Comilla University</div>
+        <div class="edu-years">2017 — 2021</div>
+        <div class="edu-cgpa">CGPA 3.42 / 4.0</div>
+        <div class="edu-thesis">
+          Algorithms, Data Structures, Database Systems, Software Engineering, Machine Learning
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- Education Section -->
-        <div id="education" class="page-content hidden animate-fade-in">
-            <h2 class="text-4xl font-bold mb-12 text-center flex items-center justify-center gap-3">
-                <i class="fas fa-graduation-cap text-secondary"></i>
-                <span class="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Education</span>
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Education Item 1 -->
-                <div
-                    class="p-8 rounded-2xl bg-card border border-white/5 hover:border-secondary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div
-                            class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center border border-secondary/20">
-                            <i class="fas fa-user-graduate text-secondary text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">M.Sc Engineering</h3>
-                            <div class="text-slate-400">Computer Science and Engineering</div>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="text-lg font-semibold text-white mb-1">Comilla University</div>
-                        <div class="flex items-center gap-3 text-sm text-slate-500">
-                            <span><i class="far fa-calendar-alt mr-1"></i> 2022 - 2025</span>
-                            <span class="w-1 h-1 rounded-full bg-slate-600"></span>
-                            <span>CGPA: 3.76/4.0</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 text-slate-400 text-sm">
-                        <p><strong class="text-secondary">Thesis:</strong> "Bangla Topic Modeling Using
-                            Transformer-based Architectures"</p>
-                        <p><strong class="text-secondary">Relevant Coursework:</strong> Advanced Machine Learning,
-                            Natural Language Processing, Deep Learning, Information Retrieval, Big Data Analytics</p>
-                    </div>
-                </div>
-
-                <!-- Education Item 2 -->
-                <div
-                    class="p-8 rounded-2xl bg-card border border-white/5 hover:border-secondary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div
-                            class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center border border-secondary/20">
-                            <i class="fas fa-graduation-cap text-secondary text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">B.Sc Engineering</h3>
-                            <div class="text-slate-400">Computer Science and Engineering</div>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="text-lg font-semibold text-white mb-1">Comilla University</div>
-                        <div class="flex items-center gap-3 text-sm text-slate-500">
-                            <span><i class="far fa-calendar-alt mr-1"></i> 2017 - 2021</span>
-                            <span class="w-1 h-1 rounded-full bg-slate-600"></span>
-                            <span>CGPA: 3.42/4.0</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 text-slate-400 text-sm">
-                        <p><strong class="text-secondary">Relevant Coursework:</strong> Algorithms, Data Structures,
-                            Database Systems, Software Engineering, Machine Learning</p>
-                    </div>
-                </div>
-            </div>
+<!-- ═══════════════ SKILLS ═══════════════ -->
+<section id="skills" class="page">
+  <div class="skills-container">
+    <div class="section-header" style="margin-bottom:4rem;">
+      <span class="section-num">§ 04</span>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Development</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Django</span>
+          <span class="skill-tag">Django REST Framework</span>
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Scrapy</span>
+          <span class="skill-tag">RESTful APIs</span>
+          <span class="skill-tag">Flutter</span>
+          <span class="skill-tag">React Native</span>
         </div>
-
-        <!-- Skills Section -->
-        <div id="skills" class="page-content hidden animate-fade-in">
-            <h2 class="text-4xl font-bold mb-12 text-center flex items-center justify-center gap-3">
-                <i class="fas fa-code text-primary"></i>
-                <span class="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Technical
-                    Skills</span>
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Skill Category 1 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fas fa-laptop-code text-primary"></i> Development
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-default">Django</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-default">Django
-                            REST Framework</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-default">FastAPI</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-default">Scrapy</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-default">RESTful
-                            APIs</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-default">Flutter</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-default">React
-                            Native</span>
-                    </div>
-                </div>
-
-                <!-- Skill Category 2 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fas fa-database text-secondary"></i> Databases
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-secondary hover:text-white hover:border-secondary transition-colors cursor-default">PostgreSQL</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-secondary hover:text-white hover:border-secondary transition-colors cursor-default">PostGIS</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-secondary hover:text-white hover:border-secondary transition-colors cursor-default">Query
-                            Optimization</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-secondary hover:text-white hover:border-secondary transition-colors cursor-default">Qdrant</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-secondary hover:text-white hover:border-secondary transition-colors cursor-default">Vector
-                            Databases</span>
-                    </div>
-                </div>
-
-                <!-- Skill Category 3 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fas fa-brain text-blue-500"></i> AI/ML Frameworks
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-colors cursor-default">PyTorch</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-colors cursor-default">TensorFlow</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-colors cursor-default">Hugging
-                            Face</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-colors cursor-default">Scikit-learn</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-colors cursor-default">LangChain</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-colors cursor-default">RAG</span>
-                    </div>
-                </div>
-
-                <!-- Skill Category 4 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fas fa-language text-emerald-500"></i> NLP
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-colors cursor-default">BanglaBERT</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-colors cursor-default">mBERT</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-colors cursor-default">BERTopic</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-colors cursor-default">Transformers</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-colors cursor-default">Topic
-                            Modeling</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-colors cursor-default">Prompt
-                            Engineering</span>
-                    </div>
-                </div>
-
-                <!-- Skill Category 5 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fas fa-chart-bar text-orange-500"></i> Data Science
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-colors cursor-default">Pandas</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-colors cursor-default">NumPy</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-colors cursor-default">Matplotlib</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-colors cursor-default">Seaborn</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-colors cursor-default">Plotly</span>
-                    </div>
-                </div>
-
-                <!-- Skill Category 6 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fas fa-tools text-rose-500"></i> Tools & Others
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-rose-500 hover:text-white hover:border-rose-500 transition-colors cursor-default">Git</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-rose-500 hover:text-white hover:border-rose-500 transition-colors cursor-default">Docker</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-rose-500 hover:text-white hover:border-rose-500 transition-colors cursor-default">GeoServer</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-rose-500 hover:text-white hover:border-rose-500 transition-colors cursor-default">Linux</span>
-                        <span
-                            class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm hover:bg-rose-500 hover:text-white hover:border-rose-500 transition-colors cursor-default">LaTeX</span>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">PostGIS</span>
+          <span class="skill-tag">Query Optimization</span>
+          <span class="skill-tag">Qdrant</span>
+          <span class="skill-tag">Vector Databases</span>
         </div>
-
-        <!-- Projects Section -->
-        <div id="projects" class="page-content hidden animate-fade-in">
-            <h2 class="text-4xl font-bold mb-12 text-center flex items-center justify-center gap-3">
-                <i class="fas fa-project-diagram text-primary"></i>
-                <span class="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Key Projects</span>
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                <!-- Project 1 -->
-                <div
-                    class="group p-8 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col">
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">PetroVis -
-                        E&P Data Visualization Platform</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Comprehensive Django-based web
-                        application for petroleum exploration and production data management. Features well data
-                        management, core analysis visualization, drilling reports, and production metrics tracking.
-                        Implemented REST APIs with Django REST Framework, automated LAS-SEGY conversion, and interactive
-                        data visualization dashboards using Chart.js and Plotly.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Django</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Django
-                            REST Framework</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">PostgreSQL</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Chart.js</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Plotly</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">LAS/SEGY</span>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div
-                    class="group p-8 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col">
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">
-                        WebGIS-based Data Inventory Management System</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Comprehensive Django-based web
-                        application for petroleum exploration and production data management. Features well data
-                        management, core analysis visualization, drilling reports, and production metrics tracking.
-                        Implemented REST APIs with Django REST Framework, automated LAS-SEGY conversion, PDF data
-                        extraction automation for collecting data from drilling reports, and interactive data
-                        visualization dashboards.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Django</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">PostgreSQL</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">PostGIS</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">GeoServer</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">LeafletJS</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">REST
-                            APIs</span>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div
-                    class="group p-8 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col">
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Multimodal
-                        ML System for Drilling Optimization</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Python-based ML system integrating
-                        time-series drilling data with geological formations. Built data processing pipelines and
-                        predictive models for operational efficiency. Developed Django REST APIs for real-time data
-                        ingestion and analysis with interactive dashboards.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Python</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Django</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">PyTorch</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Pandas</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Time-series
-                            Analysis</span>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div
-                    class="group p-8 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col">
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Bangla
-                        Topic Modeling using Transformer Architectures</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Applied large transformer models
-                        (BanglaBERT, mBERT) for topic discovery in Bangla corpora. Evaluated prompt-driven and
-                        unsupervised techniques (BERTopic, LDA) for multilingual text summarization and semantic
-                        clustering.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">PyTorch</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Hugging
-                            Face</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">BERTopic</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">BanglaBERT</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">NLP</span>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div
-                    class="group p-8 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col">
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Bangla
-                        Misinformation Identification using RAG</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Developed a RAG system for
-                        detecting misinformation in Bangla text through claim-evidence pair analysis. Implemented
-                        document retrieval and evidence verification pipeline for factual accuracy assessment in
-                        low-resource settings.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">LangChain</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">RAG</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Vector
-                            Databases</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">NLP</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Transformers</span>
-                    </div>
-                </div>
-
-                <!-- Project 6 -->
-                <div
-                    class="group p-8 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col">
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">CauserV2 –
-                        Volunteer Management App</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Enables users to search and
-                        register for volunteer opportunities, manage profiles, track hours, and receive notifications.
-                        Built with React Native and Redux Toolkit for state management, providing a seamless
-                        cross-platform experience for volunteers to discover meaningful opportunities and organizations
-                        to manage their volunteer programs effectively.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">React
-                            Native</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Redux</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Redux
-                            Toolkit</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">JavaScript</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Push
-                            Notifications</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Cross-platform</span>
-                    </div>
-                </div>
-
-                <!-- Project 7 -->
-                <div
-                    class="group p-8 rounded-2xl bg-card border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col">
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">TRACE –
-                        Plastic Waste Collection App</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Allows users to collect plastic
-                        waste in exchange for reward points redeemable for goods. Includes geolocation services, reward
-                        tracking system, and push notifications. Developed using React Native and Redux Toolkit for
-                        efficient state management, promoting environmental sustainability through gamification and
-                        incentive-based waste collection.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">React
-                            Native</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Redux</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Redux
-                            Toolkit</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Geolocation</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Push
-                            Notifications</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">JavaScript</span>
-                        <span
-                            class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary border border-primary/30">Gamification</span>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">AI / ML Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Hugging Face</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">RAG</span>
         </div>
-
-        <!-- Publications Section -->
-        <div id="publications" class="page-content hidden animate-fade-in">
-            <h2 class="text-4xl font-bold mb-12 text-center flex items-center justify-center gap-3">
-                <i class="fas fa-book text-secondary"></i>
-                <span class="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Publications</span>
-            </h2>
-
-            <div class="space-y-6">
-                <!-- Publication 1 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-secondary/50 transition-all duration-300 hover:shadow-lg">
-                    <div class="flex flex-col md:flex-row justify-between gap-4">
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Bangla Document Classification using Deep
-                                Recurrent Neural Network with BiLSTM</h4>
-                            <div class="text-secondary font-medium mb-1">Saifur Rahman, Partha Chakraborty</div>
-                            <div class="text-slate-400 italic text-sm">Algorithms for Intelligent Systems, Springer
-                                Singapore</div>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span class="px-3 py-1 rounded-full bg-secondary text-white text-sm font-bold">2021</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Publication 2 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-secondary/50 transition-all duration-300 hover:shadow-lg">
-                    <div class="flex flex-col md:flex-row justify-between gap-4">
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Ascertaining Polarity of Public Opinions on
-                                Bangladesh Cricket Using Machine Learning Techniques</h4>
-                            <div class="text-secondary font-medium mb-1">M Abdullah Faruque, Saifur Rahman, Partha
-                                Chakraborty, et al.</div>
-                            <div class="text-slate-400 italic text-sm">Spatial Information Research (SPIR)</div>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span class="px-3 py-1 rounded-full bg-secondary text-white text-sm font-bold">April
-                                2021</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Publication 3 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-secondary/50 transition-all duration-300 hover:shadow-lg">
-                    <div class="flex flex-col md:flex-row justify-between gap-4">
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">A Comparative Study of Different Machine
-                                Learning Techniques to Predict the Result of an Individual Student Using Previous
-                                Performances</h4>
-                            <div class="text-secondary font-medium mb-1">Khalil Ahammad, Partha Chakraborty, Evana
-                                Akter, Umme Honey Fomey, Saifur Rahman</div>
-                            <div class="text-slate-400 italic text-sm">International Journal of Computer Science and
-                                Information Security (IJCSIS), Volume 19, No. 1</div>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span class="px-3 py-1 rounded-full bg-secondary text-white text-sm font-bold">January
-                                2021</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Publication 4 -->
-                <div
-                    class="p-6 rounded-2xl bg-card border border-white/5 hover:border-secondary/50 transition-all duration-300 hover:shadow-lg">
-                    <div class="flex flex-col md:flex-row justify-between gap-4">
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Movie Success Prediction using Historical and
-                                Current Data Mining</h4>
-                            <div class="text-secondary font-medium mb-1">Partha Chakraborty, Md. Zahidur Rahman, and
-                                Saifur Rahman</div>
-                            <div class="text-slate-400 italic text-sm">International Journal of Computer Applications
-                                (IJCA) 178(47):1-5</div>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span class="px-3 py-1 rounded-full bg-secondary text-white text-sm font-bold">September
-                                2019</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Citation Impact -->
-                <div
-                    class="mt-12 p-8 rounded-2xl bg-gradient-to-r from-slate-800 to-slate-900 border border-white/5 text-center">
-                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-                        <i class="fas fa-quote-left text-slate-600"></i>
-                        <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Citation
-                            Impact</span>
-                        <i class="fas fa-quote-right text-slate-600"></i>
-                    </h3>
-                    <p class="text-xl text-white font-medium mb-2">
-                        250+ Total Citations <span class="text-slate-400 font-normal">across all publications</span>
-                    </p>
-                    <p class="text-slate-500">
-                        Research contributions recognized by the international academic community
-                    </p>
-                </div>
-            </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Natural Language Processing</div>
+        <div class="skill-tags">
+          <span class="skill-tag">BanglaBERT</span>
+          <span class="skill-tag">mBERT</span>
+          <span class="skill-tag">BERTopic</span>
+          <span class="skill-tag">Transformers</span>
+          <span class="skill-tag">Topic Modeling</span>
+          <span class="skill-tag">Prompt Engineering</span>
         </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-white/5 bg-dark py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
-            <p>&copy; 2025 Saifur Rahman. All rights reserved.</p>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Data Science</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Matplotlib</span>
+          <span class="skill-tag">Seaborn</span>
+          <span class="skill-tag">Plotly</span>
         </div>
-    </footer>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Tools &amp; Others</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">GeoServer</span>
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">LaTeX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Tab Switching Logic
-        function switchTab(tabId) {
-            // Update Navigation State
-            document.querySelectorAll('.nav-item').forEach(el => {
-                if (el.dataset.target === tabId) {
-                    el.classList.add('bg-white/10', 'text-white');
-                    el.classList.remove('text-slate-400', 'hover:bg-white/5');
-                } else {
-                    el.classList.remove('bg-white/10', 'text-white');
-                    el.classList.add('text-slate-400', 'hover:bg-white/5');
-                }
-            });
+<!-- ═══════════════ PROJECTS ═══════════════ -->
+<section id="projects" class="page">
+  <div class="proj-container">
+    <div class="section-header" style="margin-bottom:4rem;">
+      <span class="section-num">§ 05</span>
+      <h2 class="section-title">Key Projects</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-num">Project 01</div>
+        <div class="proj-title">PetroVis — E&amp;P Data Visualization Platform</div>
+        <div class="proj-desc">Comprehensive Django-based web application for petroleum exploration and production data management. Features well data management, core analysis visualization, drilling reports, and production metrics tracking with REST APIs and interactive dashboards.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Django</span>
+          <span class="proj-tag">DRF</span>
+          <span class="proj-tag">PostgreSQL</span>
+          <span class="proj-tag">Chart.js</span>
+          <span class="proj-tag">Plotly</span>
+          <span class="proj-tag">LAS/SEGY</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 02</div>
+        <div class="proj-title">WebGIS-based Data Inventory Management System</div>
+        <div class="proj-desc">Django-based GIS application for petroleum data management. Implemented REST APIs, automated LAS-SEGY conversion, PDF data extraction for drilling reports, and interactive geospatial visualization dashboards.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Django</span>
+          <span class="proj-tag">PostGIS</span>
+          <span class="proj-tag">GeoServer</span>
+          <span class="proj-tag">LeafletJS</span>
+          <span class="proj-tag">REST APIs</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 03</div>
+        <div class="proj-title">Multimodal ML System for Drilling Optimization</div>
+        <div class="proj-desc">Python-based ML system integrating time-series drilling data with geological formations. Built data processing pipelines and predictive models with Django REST APIs for real-time data ingestion and analysis.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Django</span>
+          <span class="proj-tag">PyTorch</span>
+          <span class="proj-tag">Pandas</span>
+          <span class="proj-tag">Time-series</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 04</div>
+        <div class="proj-title">Bangla Topic Modeling via Transformer Architectures</div>
+        <div class="proj-desc">Applied large transformer models (BanglaBERT, mBERT) for topic discovery in Bangla corpora. Evaluated prompt-driven and unsupervised techniques (BERTopic, LDA) for multilingual text summarization and semantic clustering.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">PyTorch</span>
+          <span class="proj-tag">Hugging Face</span>
+          <span class="proj-tag">BERTopic</span>
+          <span class="proj-tag">BanglaBERT</span>
+          <span class="proj-tag">NLP</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 05</div>
+        <div class="proj-title">Bangla Misinformation Identification via RAG</div>
+        <div class="proj-desc">Developed a RAG system for detecting misinformation in Bangla text through claim-evidence pair analysis. Implemented document retrieval and evidence verification pipeline for factual accuracy assessment in low-resource settings.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">LangChain</span>
+          <span class="proj-tag">RAG</span>
+          <span class="proj-tag">Vector DB</span>
+          <span class="proj-tag">NLP</span>
+          <span class="proj-tag">Transformers</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 06</div>
+        <div class="proj-title">CauserV2 — Volunteer Management App</div>
+        <div class="proj-desc">Cross-platform app enabling users to search and register for volunteer opportunities, manage profiles, track hours, and receive notifications. Built with React Native and Redux Toolkit for seamless state management.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">React Native</span>
+          <span class="proj-tag">Redux</span>
+          <span class="proj-tag">Redux Toolkit</span>
+          <span class="proj-tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 07</div>
+        <div class="proj-title">TRACE — Plastic Waste Collection App</div>
+        <div class="proj-desc">Gamified sustainability app allowing users to collect plastic waste in exchange for reward points. Includes geolocation services, reward tracking system, and push notifications promoting environmental responsibility.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">React Native</span>
+          <span class="proj-tag">Redux Toolkit</span>
+          <span class="proj-tag">Geolocation</span>
+          <span class="proj-tag">Gamification</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            // Mobile Menu State
-            document.querySelectorAll('.mobile-nav-item').forEach(el => {
-                if (el.dataset.target === tabId) {
-                    el.classList.add('bg-white/10', 'text-white');
-                    el.classList.remove('text-slate-400');
-                } else {
-                    el.classList.remove('bg-white/10', 'text-white');
-                    el.classList.add('text-slate-400');
-                }
-            });
+<!-- ═══════════════ PUBLICATIONS ═══════════════ -->
+<section id="publications" class="page">
+  <div class="pub-container">
+    <div class="section-header" style="margin-bottom:4rem;">
+      <span class="section-num">§ 06</span>
+      <h2 class="section-title">Publications</h2>
+      <div class="section-rule"></div>
+    </div>
 
-            // Show/Hide Content
-            document.querySelectorAll('.page-content').forEach(el => {
-                if (el.id === tabId) {
-                    el.classList.remove('hidden');
-                    el.classList.add('block');
-                } else {
-                    el.classList.add('hidden');
-                    el.classList.remove('block');
-                }
-            });
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">Bangla Document Classification using Deep Recurrent Neural Network with BiLSTM</div>
+        <div class="pub-authors">Saifur Rahman, Partha Chakraborty</div>
+        <div class="pub-journal">Algorithms for Intelligent Systems — Springer Singapore</div>
+      </div>
+      <div class="pub-year">2021</div>
+    </div>
 
-            // Close mobile menu if open
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-            }
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">Ascertaining Polarity of Public Opinions on Bangladesh Cricket Using Machine Learning Techniques</div>
+        <div class="pub-authors">M Abdullah Faruque, Saifur Rahman, Partha Chakraborty, et al.</div>
+        <div class="pub-journal">Spatial Information Research (SPIR)</div>
+      </div>
+      <div class="pub-year">Apr<br>2021</div>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">A Comparative Study of Different Machine Learning Techniques to Predict Student Results Using Previous Performances</div>
+        <div class="pub-authors">Khalil Ahammad, Partha Chakraborty, Evana Akter, Umme Honey Fomey, Saifur Rahman</div>
+        <div class="pub-journal">IJCSIS — Vol. 19, No. 1</div>
+      </div>
+      <div class="pub-year">Jan<br>2021</div>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">Movie Success Prediction using Historical and Current Data Mining</div>
+        <div class="pub-authors">Partha Chakraborty, Md. Zahidur Rahman, Saifur Rahman</div>
+        <div class="pub-journal">International Journal of Computer Applications — IJCA 178(47):1–5</div>
+      </div>
+      <div class="pub-year">Sep<br>2019</div>
+    </div>
+
+    <div class="citation-banner">
+      <span class="big-num">250+</span>
+      <p>Total Citations · Internationally Recognized Research</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 Saifur Rahman</p>
+  <p>ML Engineer · Python Developer · Dhaka, Bangladesh</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .interest-card, .proj-card, .pub-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+  });
+
+  // Page switching
+  function showPage(id, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelector('#' + id).classList.add('active');
+    document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+    if (btn) {
+      // Find the desktop nav button with same text
+      document.querySelectorAll('.nav-tabs button').forEach(b => {
+        if (b.textContent.trim().toLowerCase() === id || b.onclick?.toString().includes("'"+id+"'")) {
+          b.classList.add('active');
         }
+      });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        }
+  // Sync desktop nav active state
+  document.querySelectorAll('.nav-tabs button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
 
-        // Typing Animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const text = "AI Researcher & Python Developer";
-            const typingElement = document.getElementById('typing-text');
-            const typingDelay = 100;
-            let charIndex = 0;
+  // Mobile menu
+  function toggleMobile() {
+    document.getElementById('mobile-nav').classList.toggle('open');
+  }
 
-            function type() {
-                if (charIndex < text.length) {
-                    typingElement.textContent += text.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(type, typingDelay);
-                }
-            }
-
-            type();
-        });
-    </script>
+  // Typing animation
+  const phrases = ['Python Developer', 'ML/NLP Engineer', 'Published Researcher'];
+  let pi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typing-text');
+  function type() {
+    const word = phrases[pi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 60 : 100);
+  }
+  type();
+</script>
 </body>
-
 </html>
