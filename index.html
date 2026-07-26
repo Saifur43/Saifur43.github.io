@@ -31,7 +31,6 @@
     overflow-x: hidden;
   }
 
-  /* Custom cursor */
   body * { cursor: none !important; }
   #cursor {
     position: fixed;
@@ -49,7 +48,6 @@
     background: var(--accent-2);
   }
 
-  /* Grain overlay */
   body::after {
     content: '';
     position: fixed; inset: 0;
@@ -59,7 +57,6 @@
     opacity: 0.4;
   }
 
-  /* ─── NAVIGATION ─── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: var(--paper);
@@ -110,7 +107,6 @@
     letter-spacing: 0.1em;
   }
 
-  /* ─── LAYOUT ─── */
   main { padding-top: 60px; min-height: 100vh; }
   .page { display: none; }
   .page.active { display: block; animation: pageIn 0.4s ease; }
@@ -120,12 +116,10 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ─── HOME PAGE ─── */
   .home-hero {
     border-bottom: 1px solid var(--rule);
   }
 
-  /* Top band: name + photo + bio in one row */
   .hero-top {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -240,7 +234,6 @@
   }
   .hero-photo:hover { filter: grayscale(0%); transform: scale(1.05); }
 
-  /* Stats bar */
   .hero-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -272,7 +265,6 @@
     margin-top: 0.3rem;
   }
 
-  /* Interests grid */
   .interests-section {
     padding: 5rem 4rem;
     border-bottom: 1px solid var(--rule);
@@ -345,7 +337,6 @@
     transition: color 0.2s;
   }
 
-  /* ─── EXPERIENCE ─── */
   .exp-container { max-width: 900px; margin: 0 auto; padding: 5rem 3rem; }
 
   .exp-item {
@@ -422,7 +413,6 @@
     font-size: 0.75rem;
   }
 
-  /* ─── EDUCATION ─── */
   .edu-container { max-width: 900px; margin: 0 auto; padding: 5rem 3rem; }
   .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
   .edu-card {
@@ -488,7 +478,6 @@
   }
   .edu-thesis strong { color: var(--accent); }
 
-  /* ─── SKILLS ─── */
   .skills-container { padding: 5rem 4rem; }
   .skills-grid {
     display: grid;
@@ -527,7 +516,6 @@
     border-color: var(--ink);
   }
 
-  /* ─── PROJECTS ─── */
   .proj-container { padding: 5rem 4rem; }
   .proj-grid {
     display: grid;
@@ -584,7 +572,6 @@
     transition: all 0.2s;
   }
 
-  /* ─── PUBLICATIONS ─── */
   .pub-container { max-width: 900px; margin: 0 auto; padding: 5rem 3rem; }
   .pub-item {
     padding: 2.5rem 0;
@@ -650,7 +637,6 @@
     margin-top: 0.75rem;
   }
 
-  /* ─── FOOTER ─── */
   footer {
     border-top: 1px solid var(--rule);
     padding: 2rem 4rem;
@@ -665,7 +651,6 @@
     text-transform: uppercase;
   }
 
-  /* Mobile */
   @media (max-width: 768px) {
     nav { padding: 0 1.5rem; }
     .nav-tabs { display: none; }
@@ -688,7 +673,6 @@
     .hero-right-block { flex-direction: row; justify-content: center; }
   }
 
-  /* Mobile menu */
   .mobile-menu-btn {
     display: none;
     background: none; border: none;
@@ -718,7 +702,6 @@
   }
   .mobile-nav button:hover { background: var(--paper-2); }
 
-  /* Horizontal scroll for stats on mobile */
   @media (max-width: 480px) {
     .hero-stats { grid-template-columns: repeat(3,1fr); overflow-x: auto; }
     .stat-num { font-size: 1.8rem; }
@@ -729,7 +712,6 @@
 
 <div id="cursor"></div>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">Saifur <span>Rahman</span></a>
   <ul class="nav-tabs">
@@ -740,7 +722,7 @@
     <li><button onclick="showPage('projects',this)">Projects</button></li>
     <li><button onclick="showPage('publications',this)">Publications</button></li>
   </ul>
-  <span class="nav-right">AI · NLP · Python</span>
+  <span class="nav-right">AI · NLP · Python · Mobile</span>
   <button class="mobile-menu-btn" onclick="toggleMobile()">☰</button>
   <div class="mobile-nav" id="mobile-nav">
     <button onclick="showPage('home',this);toggleMobile()">Home</button>
@@ -754,26 +736,22 @@
 
 <main>
 
-<!-- ═══════════════ HOME ═══════════════ -->
 <section id="home" class="page active">
   <div class="home-hero">
 
-    <!-- Compact top band -->
     <div class="hero-top">
-      <!-- Name block -->
       <div class="hero-name-block">
         <p class="hero-label">Portfolio · 2026</p>
         <h1 class="hero-name">Saifur<br><em>Rahman</em></h1>
       </div>
 
-      <!-- Bio + links -->
       <div class="hero-center">
         <div class="hero-tagline-wrap">
           <span class="hero-tagline" id="typing-text" style="min-width:200px;"></span>
           <div class="hero-tagline-sep"></div>
         </div>
         <p class="hero-bio">
-          Python developer with <strong>3+ years</strong> building scalable web apps and REST APIs using Django &amp; FastAPI. AI researcher focused on <strong>NLP</strong>, transformer-based models, and low-resource language processing. Published with <strong>250+ citations</strong> across petroleum exploration, nutrition analysis, and Bangla NLP.
+          Python developer and AI/ML engineer with <strong>4+ years</strong> building scalable backend systems, REST APIs, and cross-platform mobile apps with Django, FastAPI, Flutter, and React Native. Focused on <strong>NLP</strong>, transformer-based models, and low-resource language processing, with applied AI/ML experience in the petroleum sector. Published author with <strong>250+ citations</strong> across different sectors, with a focus on NLP.
         </p>
         <div class="hero-links">
           <a href="tel:+8801644199529" class="hero-link">
@@ -785,19 +763,23 @@
           <a href="https://github.com/Saifur43" target="_blank" class="hero-link">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
           </a>
-          <a href="https://www.linkedin.com/in/saifur-rahman" target="_blank" class="hero-link">
+          <a href="https://www.linkedin.com/in/saifur43/" target="_blank" class="hero-link">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+          </a>
+          <a href="https://scholar.google.com/citations?user=wJWnjI0AAAAJ&hl=en" target="_blank" class="hero-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.24 14.978 9.5 12 9.5c-2.977 0-5.548 1.74-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/></svg>Scholar
+          </a>
+          <a href="https://www.researchgate.net/profile/Saifur-Rahman-20?ev=hdr_xprf" target="_blank" class="hero-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.586 0c-.818 0-1.508.19-2.073.565a3.833 3.833 0 00-1.302 1.464 6.929 6.929 0 00-.612 1.997 12.916 12.916 0 00-.17 2.1c0 .878.116 1.686.283 2.478.169.79.437 1.522.813 2.164.376.641.865 1.164 1.464 1.55.6.386 1.318.579 2.147.579.83 0 1.548-.193 2.147-.579.6-.386 1.088-.909 1.464-1.55.376-.642.644-1.374.813-2.164.167-.792.283-1.6.283-2.478 0-.729-.058-1.435-.17-2.1a6.929 6.929 0 00-.612-1.997A3.833 3.833 0 0022.66.565C22.094.19 21.404 0 20.586 0h-1zM3.72 6.253C1.67 6.253 0 7.923 0 9.973v9.774C0 21.797 1.67 24 3.72 24h6.947c1.531 0 2.773-1.242 2.773-2.773v-3.29a.87.87 0 00-1.74 0v3.29a1.033 1.033 0 01-1.033 1.033H3.72a2.253 2.253 0 01-2.253-2.253V9.973A2.253 2.253 0 013.72 7.72h6.947a1.033 1.033 0 011.033 1.033v.29a.87.87 0 001.74 0v-.29c0-1.531-1.242-2.773-2.773-2.773H3.72z"/></svg>ResearchGate
           </a>
         </div>
       </div>
 
-      <!-- Photo -->
       <div class="hero-right-block">
         <img src="https://avatars.githubusercontent.com/u/16235332?v=4" alt="Saifur Rahman" class="hero-photo">
       </div>
     </div>
 
-    <!-- Stats bar — full width ink band -->
     <div class="hero-stats">
       <div class="stat">
         <span class="stat-num">4<em>+</em></span>
@@ -815,7 +797,6 @@
 
   </div>
 
-  <!-- Research Interests -->
   <div class="interests-section">
     <div class="section-header">
       <span class="section-num">§ 01</span>
@@ -857,7 +838,6 @@
   </div>
 </section>
 
-<!-- ═══════════════ EXPERIENCE ═══════════════ -->
 <section id="experience" class="page">
   <div class="exp-container">
     <div class="section-header" style="margin-bottom:4rem;">
@@ -876,12 +856,27 @@
         <h3 class="exp-role">Assistant Manager — Software Engineer</h3>
         <div class="exp-company">BAPEX · Bangladesh Petroleum Exploration & Production</div>
         <ul class="exp-list">
-          <li>Designed and maintained scalable Django backend systems for petroleum exploration and production data management</li>
-          <li>Led development of WebGIS-based Data Inventory Management System (DIMS) with PostGIS for geospatial data handling</li>
-          <li>Implemented RESTful APIs using Django REST Framework for geological data access and manipulation</li>
-          <li>Built PetroVis, a comprehensive Django-based E&P data visualization platform for managing well data, core analysis, drilling reports, and production metrics</li>
-          <li>Developed multimodal ML system integrating time-series drilling data with geological formations for operational efficiency</li>
-          <li>Created analytical dashboards providing predictive insights for subsurface analysis and strategic decision-making</li>
+          <li>Designed and maintained scalable Django and FastAPI backend systems for petroleum exploration and production data management</li>
+          <li>Led development of WebGIS-based Data Inventory Management System (DIMS) with PostGIS for geospatial data handling and Django REST Framework APIs for geological data access</li>
+          <li>Built PetroVis, a Django-based E&P data visualization platform for managing well data, core analysis, drilling reports, and production metrics with LAS-SEGY conversion</li>
+          <li>Developed and maintained a cross-platform Flutter mobile application for the BAPEX Employee Management System with secure JWT authentication and Provider-based state management</li>
+          <li>Built the FastAPI backend for BAPEX Inventory &amp; E-Store, powering real-time stock visibility, receipt/issue/return tracking, and export-ready reports, with a React frontend</li>
+          <li>Developed a multimodal ML system integrating time-series drilling data with geological formations for operational efficiency and hazard prediction</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-year">24</span>
+        <div class="exp-period">2024 — 2025</div>
+      </div>
+      <div class="exp-body">
+        <h3 class="exp-role">Mobile App Developer (Part-Time)</h3>
+        <div class="exp-company">T2 Devs</div>
+        <ul class="exp-list">
+          <li>Developed and deployed cross-platform mobile applications, including CauserV2 (Volunteer Management App) and TRACE (Plastic Waste Collection App), using Flutter</li>
+          <li>Integrated RESTful APIs, Firebase, and geolocation services; implemented structured state management and published Android and iOS builds following clean architecture principles</li>
         </ul>
       </div>
     </div>
@@ -896,11 +891,10 @@
         <h3 class="exp-role">NLP &amp; ML Engineer</h3>
         <div class="exp-company">NutriLab · AI-Powered Nutrition Platform</div>
         <ul class="exp-list">
-          <li>Built FastAPI backend services for automated food label analysis, integrating USDA datasets with Qdrant vector database</li>
-          <li>Developed high-performance FastAPI endpoints for four core user interaction loops with async operations</li>
+          <li>Built FastAPI backend services for automated food label analysis, integrating USDA datasets with the Qdrant vector database</li>
+          <li>Developed high-performance FastAPI endpoints for four core user interaction loops (food scanning, label scanning, chatbot, home page) with async operations</li>
           <li>Reduced API latency from 30s to 3s through optimization, significantly improving platform responsiveness</li>
           <li>Implemented NLP models for nutrition detection and personalized dietary recommendations with real-time inference</li>
-          <li>Built AI-driven pipelines for real-time nutrition recommendations using vector search</li>
         </ul>
       </div>
     </div>
@@ -914,19 +908,16 @@
         <h3 class="exp-role">Research Assistant</h3>
         <div class="exp-company">PC Research Lab · Dept. of CSE, Comilla University</div>
         <ul class="exp-list">
-          <li>Led research in Bangla topic modeling using deep learning and transformer architectures</li>
-          <li>Conducted research on Bangla NLP using transformer architectures (BanglaBERT, mBERT)</li>
+          <li>Led research in Bangla topic modeling using deep learning and transformer architectures (BanglaBERT, mBERT)</li>
           <li>Implemented NLP models using PyTorch and Hugging Face Transformers</li>
           <li>Developed Python data pipelines for text preprocessing and model evaluation</li>
-          <li>Co-authored multiple peer-reviewed publications with 250+ total citations</li>
-          <li>Mentored undergraduate students in research methodologies and experimental design</li>
+          <li>Co-authored multiple peer-reviewed publications with 250+ total citations and mentored undergraduate students in research methodologies</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ EDUCATION ═══════════════ -->
 <section id="education" class="page">
   <div class="edu-container">
     <div class="section-header" style="margin-bottom:4rem;">
@@ -960,7 +951,6 @@
   </div>
 </section>
 
-<!-- ═══════════════ SKILLS ═══════════════ -->
 <section id="skills" class="page">
   <div class="skills-container">
     <div class="section-header" style="margin-bottom:4rem;">
@@ -970,25 +960,60 @@
     </div>
     <div class="skills-grid">
       <div class="skill-group">
-        <div class="skill-group-title">Development</div>
+        <div class="skill-group-title">Backend Development</div>
         <div class="skill-tags">
           <span class="skill-tag">Django</span>
           <span class="skill-tag">Django REST Framework</span>
           <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Express 5</span>
+          <span class="skill-tag">Prisma</span>
           <span class="skill-tag">Scrapy</span>
           <span class="skill-tag">RESTful APIs</span>
-          <span class="skill-tag">Flutter</span>
-          <span class="skill-tag">React Native</span>
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-title">Databases</div>
+        <div class="skill-group-title">Mobile Development</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Flutter</span>
+          <span class="skill-tag">Dart</span>
+          <span class="skill-tag">React Native</span>
+          <span class="skill-tag">Expo</span>
+          <span class="skill-tag">Provider</span>
+          <span class="skill-tag">Riverpod</span>
+          <span class="skill-tag">BLoC/Cubit</span>
+          <span class="skill-tag">GetX</span>
+          <span class="skill-tag">Redux</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Databases &amp; Infrastructure</div>
         <div class="skill-tags">
           <span class="skill-tag">PostgreSQL</span>
           <span class="skill-tag">PostGIS</span>
           <span class="skill-tag">Query Optimization</span>
+          <span class="skill-tag">SQLite</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">Redis</span>
+          <span class="skill-tag">Celery</span>
           <span class="skill-tag">Qdrant</span>
           <span class="skill-tag">Vector Databases</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">DevOps &amp; Testing</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">Nginx</span>
+          <span class="skill-tag">CI/CD</span>
+          <span class="skill-tag">Pytest</span>
+          <span class="skill-tag">Vitest</span>
+          <span class="skill-tag">JWT / OAuth</span>
+          <span class="skill-tag">RBAC</span>
         </div>
       </div>
       <div class="skill-group">
@@ -1026,10 +1051,10 @@
       <div class="skill-group">
         <div class="skill-group-title">Tools &amp; Others</div>
         <div class="skill-tags">
-          <span class="skill-tag">Git</span>
-          <span class="skill-tag">Docker</span>
           <span class="skill-tag">GeoServer</span>
-          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Android Studio</span>
           <span class="skill-tag">LaTeX</span>
         </div>
       </div>
@@ -1037,7 +1062,6 @@
   </div>
 </section>
 
-<!-- ═══════════════ PROJECTS ═══════════════ -->
 <section id="projects" class="page">
   <div class="proj-container">
     <div class="section-header" style="margin-bottom:4rem;">
@@ -1048,31 +1072,43 @@
     <div class="proj-grid">
       <div class="proj-card">
         <div class="proj-num">Project 01</div>
-        <div class="proj-title">PetroVis — E&amp;P Data Visualization Platform</div>
-        <div class="proj-desc">Comprehensive Django-based web application for petroleum exploration and production data management. Features well data management, core analysis visualization, drilling reports, and production metrics tracking with REST APIs and interactive dashboards.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">Django</span>
-          <span class="proj-tag">DRF</span>
-          <span class="proj-tag">PostgreSQL</span>
-          <span class="proj-tag">Chart.js</span>
-          <span class="proj-tag">Plotly</span>
-          <span class="proj-tag">LAS/SEGY</span>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-num">Project 02</div>
         <div class="proj-title">WebGIS-based Data Inventory Management System</div>
-        <div class="proj-desc">Django-based GIS application for petroleum data management. Implemented REST APIs, automated LAS-SEGY conversion, PDF data extraction for drilling reports, and interactive geospatial visualization dashboards.</div>
+        <div class="proj-desc">Django-based GIS application for petroleum exploration and production data management. Implemented REST APIs, PostGIS-powered spatial data modeling, PDF data extraction automation for drilling reports, and interactive dashboards visualizing well data, core analysis, drilling reports, and production metrics, with LAS-SEGY conversion and Chart.js/Plotly visualizations.</div>
         <div class="proj-tags">
           <span class="proj-tag">Django</span>
           <span class="proj-tag">PostGIS</span>
           <span class="proj-tag">GeoServer</span>
           <span class="proj-tag">LeafletJS</span>
+          <span class="proj-tag">Chart.js</span>
+          <span class="proj-tag">Plotly</span>
+          <span class="proj-tag">LAS/SEGY</span>
           <span class="proj-tag">REST APIs</span>
         </div>
       </div>
       <div class="proj-card">
+        <div class="proj-num">Project 02</div>
+        <div class="proj-title">BAPEX Employee Management System</div>
+        <div class="proj-desc">Cross-platform Flutter application for BAPEX featuring secure JWT authentication, modular state management with Provider, and interactive data visualizations, including dynamic FL Chart graphs and multi-level organizational browsing.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Flutter</span>
+          <span class="proj-tag">Provider</span>
+          <span class="proj-tag">Dio</span>
+          <span class="proj-tag">JWT</span>
+          <span class="proj-tag">FL Chart</span>
+        </div>
+      </div>
+      <div class="proj-card">
         <div class="proj-num">Project 03</div>
+        <div class="proj-title">BAPEX Inventory &amp; E-Store</div>
+        <div class="proj-desc">FastAPI backend powering an inventory and procurement platform with real-time stock visibility, receipt/issue/return tracking, structured item cataloging, and export-ready operational reports, paired with a React frontend.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">FastAPI</span>
+          <span class="proj-tag">PostgreSQL</span>
+          <span class="proj-tag">React</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 04</div>
         <div class="proj-title">Multimodal ML System for Drilling Optimization</div>
         <div class="proj-desc">Python-based ML system integrating time-series drilling data with geological formations. Built data processing pipelines and predictive models with Django REST APIs for real-time data ingestion and analysis.</div>
         <div class="proj-tags">
@@ -1084,7 +1120,49 @@
         </div>
       </div>
       <div class="proj-card">
-        <div class="proj-num">Project 04</div>
+        <div class="proj-num">Project 05</div>
+        <div class="proj-title">ISSB PPDT Preparation Platform</div>
+        <div class="proj-desc">Cross-platform mobile and web application supporting candidate preparation for military Picture Perception &amp; Discussion Tests (PPDT). Connected a Flutter cross-platform UI to a lightweight, high-speed FastAPI backend via RESTful OpenAPI.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Flutter</span>
+          <span class="proj-tag">FastAPI</span>
+          <span class="proj-tag">OpenAPI</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 06</div>
+        <div class="proj-title">Property Mart</div>
+        <div class="proj-desc">Real estate platform with multi-environment deployment configurations (Dev, Staging, Production) for Android (APK/AppBundle) and Web builds. Configured automated SCP/SSH release packaging scripts and Flutter Version Management.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Flutter</span>
+          <span class="proj-tag">Dart</span>
+          <span class="proj-tag">FVM</span>
+          <span class="proj-tag">Bash/SSH</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 07</div>
+        <div class="proj-title">CauserV2 — Volunteer Management App</div>
+        <div class="proj-desc">Cross-platform app enabling users to search and register for volunteer opportunities, manage profiles, track hours, and receive notifications. Implemented using SSO authentication, API integration, and push notifications.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Flutter</span>
+          <span class="proj-tag">SSO</span>
+          <span class="proj-tag">Push Notifications</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 08</div>
+        <div class="proj-title">TRACE — Plastic Waste Collection App</div>
+        <div class="proj-desc">Gamified sustainability app allowing users to collect plastic waste in exchange for redeemable reward points. Includes real-time geolocation tracking, custom Google Maps markers, QR code scanning, and push notifications.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Flutter</span>
+          <span class="proj-tag">Google Maps</span>
+          <span class="proj-tag">Geolocation</span>
+          <span class="proj-tag">Gamification</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">Project 09</div>
         <div class="proj-title">Bangla Topic Modeling via Transformer Architectures</div>
         <div class="proj-desc">Applied large transformer models (BanglaBERT, mBERT) for topic discovery in Bangla corpora. Evaluated prompt-driven and unsupervised techniques (BERTopic, LDA) for multilingual text summarization and semantic clustering.</div>
         <div class="proj-tags">
@@ -1096,7 +1174,7 @@
         </div>
       </div>
       <div class="proj-card">
-        <div class="proj-num">Project 05</div>
+        <div class="proj-num">Project 10</div>
         <div class="proj-title">Bangla Misinformation Identification via RAG</div>
         <div class="proj-desc">Developed a RAG system for detecting misinformation in Bangla text through claim-evidence pair analysis. Implemented document retrieval and evidence verification pipeline for factual accuracy assessment in low-resource settings.</div>
         <div class="proj-tags">
@@ -1104,36 +1182,12 @@
           <span class="proj-tag">RAG</span>
           <span class="proj-tag">Vector DB</span>
           <span class="proj-tag">NLP</span>
-          <span class="proj-tag">Transformers</span>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-num">Project 06</div>
-        <div class="proj-title">CauserV2 — Volunteer Management App</div>
-        <div class="proj-desc">Cross-platform app enabling users to search and register for volunteer opportunities, manage profiles, track hours, and receive notifications. Built with React Native and Redux Toolkit for seamless state management.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">React Native</span>
-          <span class="proj-tag">Redux</span>
-          <span class="proj-tag">Redux Toolkit</span>
-          <span class="proj-tag">JavaScript</span>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-num">Project 07</div>
-        <div class="proj-title">TRACE — Plastic Waste Collection App</div>
-        <div class="proj-desc">Gamified sustainability app allowing users to collect plastic waste in exchange for reward points. Includes geolocation services, reward tracking system, and push notifications promoting environmental responsibility.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">React Native</span>
-          <span class="proj-tag">Redux Toolkit</span>
-          <span class="proj-tag">Geolocation</span>
-          <span class="proj-tag">Gamification</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ PUBLICATIONS ═══════════════ -->
 <section id="publications" class="page">
   <div class="pub-container">
     <div class="section-header" style="margin-bottom:4rem;">
@@ -1171,6 +1225,15 @@
 
     <div class="pub-item">
       <div>
+        <div class="pub-title">A Comparative Analysis of Machine Learning Approaches in Personality Prediction Using MBTI</div>
+        <div class="pub-authors">Kulsum Akter Nisha, Umme Kulsum, Saifur Rahman, et al.</div>
+        <div class="pub-journal">Springer Advances in Intelligent Systems and Computing (AISC)</div>
+      </div>
+      <div class="pub-year">2021</div>
+    </div>
+
+    <div class="pub-item">
+      <div>
         <div class="pub-title">Movie Success Prediction using Historical and Current Data Mining</div>
         <div class="pub-authors">Partha Chakraborty, Md. Zahidur Rahman, Saifur Rahman</div>
         <div class="pub-journal">International Journal of Computer Applications — IJCA 178(47):1–5</div>
@@ -1189,11 +1252,10 @@
 
 <footer>
   <p>© 2026 Saifur Rahman</p>
-  <p>ML Engineer · Python Developer · Dhaka, Bangladesh</p>
+  <p>ML Engineer · Python Developer · Mobile Developer · Dhaka, Bangladesh</p>
 </footer>
 
 <script>
-  // Custom cursor
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
@@ -1204,13 +1266,11 @@
     el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
   });
 
-  // Page switching
   function showPage(id, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelector('#' + id).classList.add('active');
     document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
     if (btn) {
-      // Find the desktop nav button with same text
       document.querySelectorAll('.nav-tabs button').forEach(b => {
         if (b.textContent.trim().toLowerCase() === id || b.onclick?.toString().includes("'"+id+"'")) {
           b.classList.add('active');
@@ -1220,7 +1280,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Sync desktop nav active state
   document.querySelectorAll('.nav-tabs button').forEach(btn => {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
@@ -1228,13 +1287,11 @@
     });
   });
 
-  // Mobile menu
   function toggleMobile() {
     document.getElementById('mobile-nav').classList.toggle('open');
   }
 
-  // Typing animation
-  const phrases = ['Python Developer', 'ML/NLP Engineer', 'Published Researcher'];
+  const phrases = ['Python Developer', 'ML/NLP Engineer', 'Mobile Developer', 'Published Researcher'];
   let pi = 0, ci = 0, deleting = false;
   const el = document.getElementById('typing-text');
   function type() {
